@@ -8,3 +8,13 @@
 [2025-01-28T20:03:11.635Z] INFO: File uploaded to S3 for ID: 679937f9cdb69ced67710512. URL: https://s3.ap-south-1.amazonaws.com/bucket.tedx/payment_proof_679937f9cdb69ced67710512.png
 [2025-01-28T20:03:15.985Z] INFO: Database updated for ID: 679937f9cdb69ced67710512
 [2025-01-28T20:03:15.994Z] INFO: Job 44 completed successfully.
+[2025-01-28T20:56:32.884Z] INFO: Received request to save progress at stage 1 with data: {"name":"Devanshu Gupta","email":"devanshuguptaknp@gmail.com","rollNumber":"12114078","contactNumber":"8004604365","degree":"BTech","year":"4th","branch":"Electrical"}
+[2025-01-28T20:56:33.708Z] INFO: Ticket created successfully with ID: g�D��T���-�
+[2025-01-28T20:59:07.432Z] INFO: Received request to save progress at stage 1 with data: {"name":"Devanshu Gupta","email":"devanshuguptaknp@gmail.com","rollNumber":"12114078","contactNumber":"8004604365","degree":"BTech","year":"4th","branch":"Electrical"}
+[2025-01-28T20:59:07.994Z] INFO: Ticket created successfully with ID: g�Ek��Ei�
+[2025-01-28T21:02:24.737Z] WARN: Duplicate entry found with rollNumber: 12114078, phoneNumber: undefined, email: devanshuguptaknp@gmail.com
+[2025-01-28T21:03:02.379Z] ERROR: Validation error: [{"code":"too_small","minimum":10,"type":"string","inclusive":true,"exact":false,"message":"Contact number must be at least 10 digits.","path":["contactNumber"]}]
+[2025-01-28T21:03:09.573Z] WARN: Duplicate entry found with rollNumber: 12114078, phoneNumber: 8004604367, email: devanshuguptaknp@gmail.com
+[2025-01-28T21:03:16.372Z] WARN: Duplicate entry found with rollNumber: 12114078, phoneNumber: 8004604367, email: devanshugupta@gmail.com
+[2025-01-28T21:03:28.564Z] INFO: Received request to save progress at stage 1 with data: {"name":"Devanshu Gupta","email":"devanshugupta@gmail.com","rollNumber":"12114079","contactNumber":"8004604367","degree":"BTech","year":"4th","branch":"Electrical"}
+[2025-01-28T21:03:29.447Z] INFO: Ticket created successfully with ID: g�F!��"1[Fܤ

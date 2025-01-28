@@ -5,6 +5,7 @@ import { formDetails } from "../utils/validationSchemas";
 import { logger } from "../services/logger.service";
 import { createTicket, updateTicket } from "../utils/dbUtils";
 import { addFileUploadToQueue } from "../services/fileUpload.service";
+import { connectToDatabase } from "../services/database.service";
 
 export const ticketsRouter = express.Router();
 ticketsRouter.use(express.json());
@@ -33,7 +34,11 @@ const upload = multer({
 ticketsRouter.post("/save-progress", async (req: Request, res: any) => {
   try {
     const payload = formDetails.parse(req.body);
-
+    console.log("payload", payload)
+    
+    const db = await connectToDatabase();
+    const collection = db.collection("tickets");
+    
     const data = {
       ...payload,
       branch:
@@ -49,6 +54,23 @@ ticketsRouter.post("/save-progress", async (req: Request, res: any) => {
     // Remove unnecessary fields
     delete data.branchOther;
     delete data.yearOther;
+
+    const duplicateEntry = await collection.findOne({
+      $or: [
+        { rollNumber: data.rollNumber },
+        { phoneNumber: data.contactNumber },
+        { email: data.email },
+      ],
+    });
+
+    if (duplicateEntry) {
+      logger.warn(
+        `Duplicate entry found with rollNumber: ${data.rollNumber}, phoneNumber: ${data.contactNumber}, email: ${data.email}`
+      );
+      return res.status(409).json({
+        message: "Duplicate entry found. An entry with the same roll number, phone number, or email ID already exists.",
+      });
+    }
 
     logger.info(
       `Received request to save progress at stage 1 with data: ${JSON.stringify(
