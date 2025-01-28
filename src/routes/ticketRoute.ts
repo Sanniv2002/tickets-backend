@@ -5,6 +5,7 @@ import { formDetails } from "../utils/validationSchemas";
 import { logger } from "../services/logger.service";
 import { createTicket, updateTicket } from "../utils/dbUtils";
 import { addFileUploadToQueue } from "../services/fileUpload.service";
+import { connectToDatabase } from "../services/database.service";
 
 export const ticketsRouter = express.Router();
 ticketsRouter.use(express.json());
@@ -33,7 +34,11 @@ const upload = multer({
 ticketsRouter.post("/save-progress", async (req: Request, res: any) => {
   try {
     const payload = formDetails.parse(req.body);
-
+    console.log("payload", payload)
+    
+    const db = await connectToDatabase();
+    const collection = db.collection("tickets");
+    
     const data = {
       ...payload,
       branch:
@@ -49,6 +54,24 @@ ticketsRouter.post("/save-progress", async (req: Request, res: any) => {
     // Remove unnecessary fields
     delete data.branchOther;
     delete data.yearOther;
+
+    const existingEntry = await collection.findOne({ rollNumber: data.rollNumber });
+
+    if (existingEntry) {
+      if (existingEntry.stage === "1") {
+        await collection.updateOne(
+          { rollNumber: data.rollNumber },
+          { $set: { ...data, updatedAt: new Date() } }
+        );
+        logger.info(`Existing ticket updated successfully with rollNumber: ${data.rollNumber}`);
+        return res.status(200).json({ message: "Ticket updated successfully" });
+      } else {
+        logger.warn(`Entry with rollNumber: ${data.rollNumber} exists but is not at stage 1.`);
+        return res.status(400).json({
+          message: "An entry with the same roll number exists.",
+        });
+      }
+    }
 
     logger.info(
       `Received request to save progress at stage 1 with data: ${JSON.stringify(

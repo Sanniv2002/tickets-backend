@@ -1,10 +1,0 @@
-[2025-01-28T19:45:41.461Z] INFO: Received request to save progress at stage 1 with data: {"name":"Dinesh","email":"Dines@gmail.com","rollNumber":"16227843","contactNumber":"7635100994","degree":"BTech","year":"2nd","branch":"MBA"}
-[2025-01-28T19:45:42.646Z] INFO: Ticket created successfully with ID: g�3��J|�T
-[2025-01-28T20:03:05.222Z] INFO: Received request to save progress at stage 1 with data: {"name":"Sanniv Choudhuri","email":"sanniv.1020@gmail.com","rollNumber":"12114042","contactNumber":"9382655006","degree":"BTech","year":"4th","branch":"Electrical"}
-[2025-01-28T20:03:05.769Z] INFO: Ticket created successfully with ID: g�7�Ͷ��gq
-[2025-01-28T20:03:11.110Z] INFO: File upload added to queue for ID: 679937f9cdb69ced67710512
-[2025-01-28T20:03:11.110Z] INFO: File upload job added to queue for ID: 679937f9cdb69ced67710512
-[2025-01-28T20:03:11.130Z] INFO: Processing file upload for ID: 679937f9cdb69ced67710512
-[2025-01-28T20:03:11.635Z] INFO: File uploaded to S3 for ID: 679937f9cdb69ced67710512. URL: https://s3.ap-south-1.amazonaws.com/bucket.tedx/payment_proof_679937f9cdb69ced67710512.png
-[2025-01-28T20:03:15.985Z] INFO: Database updated for ID: 679937f9cdb69ced67710512
-[2025-01-28T20:03:15.994Z] INFO: Job 44 completed successfully.
