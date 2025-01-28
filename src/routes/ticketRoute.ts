@@ -55,21 +55,22 @@ ticketsRouter.post("/save-progress", async (req: Request, res: any) => {
     delete data.branchOther;
     delete data.yearOther;
 
-    const duplicateEntry = await collection.findOne({
-      $or: [
-        { rollNumber: data.rollNumber },
-        { phoneNumber: data.contactNumber },
-        { email: data.email },
-      ],
-    });
+    const existingEntry = await collection.findOne({ rollNumber: data.rollNumber });
 
-    if (duplicateEntry) {
-      logger.warn(
-        `Duplicate entry found with rollNumber: ${data.rollNumber}, phoneNumber: ${data.contactNumber}, email: ${data.email}`
-      );
-      return res.status(409).json({
-        message: "Duplicate entry found. An entry with the same roll number, phone number, or email ID already exists.",
-      });
+    if (existingEntry) {
+      if (existingEntry.stage === "1") {
+        await collection.updateOne(
+          { rollNumber: data.rollNumber },
+          { $set: { ...data, updatedAt: new Date() } }
+        );
+        logger.info(`Existing ticket updated successfully with rollNumber: ${data.rollNumber}`);
+        return res.status(200).json({ message: "Ticket updated successfully" });
+      } else {
+        logger.warn(`Entry with rollNumber: ${data.rollNumber} exists but is not at stage 1.`);
+        return res.status(400).json({
+          message: "An entry with the same roll number exists.",
+        });
+      }
     }
 
     logger.info(
