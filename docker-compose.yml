@@ -53,6 +53,8 @@ services:
       - '--config.file=/etc/alertmanager/config.yml'
       - '--storage.path=/alertmanager'
     restart: unless-stopped
+    env_file:
+      - .env
     expose:
       - 9093
     networks:

@@ -1,13 +1,13 @@
 groups:
 - name: targets
   rules:
-  - alert: monitor_service_down
+  - alert: app_down
     expr: up == 0
     for: 30s
     labels:
       severity: critical
     annotations:
-      summary: "Monitor service non-operational"
+      summary: "App is not non-operational"
       description: "Service {{ $labels.instance }} is down."
 
 - name: host
